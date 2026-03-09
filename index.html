@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页导览</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-main: #ffffff;
+            --text-link: #ffffff;
+            --hover-bg: rgba(255, 255, 255, 0.1);
+            --icon-box-bg: #3d3d3d;
+            /* 微软深灰背景色 */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-color) url('bg.jpg') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding-top: 4vh;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0 0 2vh 0;
+            color: var(--text-main);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .search-container {
+            width: 90%;
+            max-width: 700px;
+            margin-bottom: 4vh;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2px 8px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 15px 12px;
+            font-size: 1rem;
+            background: transparent;
+        }
+
+        .links-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            /* 略微放宽，给左移留空间 */
+            display: flex;
+            flex-direction: column;
+            gap: 4.5vh;
+            /* 【微调】分类之间的距离稍微增加一点点 */
+        }
+
+        .link-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .featured-row {
+            justify-content: center;
+            margin-bottom: 1.5vh;
+        }
+
+        .link-category {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            /* 【微调】调整这个值控制整体靠左的程度，数值越小越靠左 */
+            padding-left: 0%;
+        }
+
+        .category-title {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            margin-bottom: 0.8vh;
+            /* 标题与图标的间距 */
+            font-weight: bold;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .category-row {
+            justify-content: flex-start;
+            padding-left: 3%;
+             /* 【微调】调整这个值控制分类内图标靠左的程度，数值越小越靠左 */
+        }
+
+        .link-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80px;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 6px 0;
+            transition: background 0.2s;
+        }
+
+        .link-item:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .link-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--icon-box-bg);
+            border-radius: 12px;
+            /* 微软风格圆角 */
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .link-icon img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .link-text {
+            font-size: 0.75rem;
+            color: var(--text-link);
+            text-align: center;
+            width: 90%;
+            font-weight: 400;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>网页导览</h1>
+
+    <div class="search-container">
+        <form class="search-form" action="https://www.bing.com/search" method="GET" target="_blank">
+            <input class="search-input" type="text" name="q" placeholder="在必应上搜索..." autocomplete="off" autofocus>
+        </form>
+    </div>
+
+    <div class="links-wrapper">
+        <div class="link-grid featured-row">
+            <a href="https://github.com/Y27zy" class="link-item" target="_blank">
+                <div class="link-icon"><img src="GitHub.png"></div>
+                <span class="link-text">GitHub(Y27zy)</span>
+            </a>
+            <a href="https://www.cnblogs.com/Y27zy" class="link-item" target="_blank">
+                <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=cnblogs.com&sz=64">
+                </div>
+                <span class="link-text">Y27zy博客</span>
+            </a>
+            <a href="https://gemini.google.com" class="link-item" target="_blank">
+                <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=64">
+                </div>
+                <span class="link-text">Gemini</span>
+            </a>
+            <a href="https://chatgpt.com" class="link-item" target="_blank">
+                <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=64"></div>
+                <span class="link-text">ChatGPT</span>
+            </a>
+            <a href="https://chat.deepseek.com" class="link-item" target="_blank">
+                <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=deepseek.com&sz=64"></div>
+                <span class="link-text">DeepSeek</span>
+            </a>
+            <a href="https://www.doubao.com" class="link-item" target="_blank">
+                <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=doubao.com&sz=64"></div>
+                <span class="link-text">豆包</span>
+            </a>
+        </div>
+
+        <div class="link-category">
+            <div class="category-title">南大网站</div>
+            <div class="link-grid category-row">
+                <a href="https://www.nju.edu.cn/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="NJU.png"></div>
+                    <span class="link-text">南大官网</span>
+                </a>
+                <a href="https://ehall.nju.edu.cn/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=ehall.nju.edu.cn&sz=64"></div>
+                    <span class="link-text">南大办事服务大厅</span>
+                </a>
+                <a href="https://box.nju.edu.cn/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=box.nju.edu.cn&sz=64"></div>
+                    <span class="link-text">南大box</span>
+                </a>
+                <a href="https://mail.nju.edu.cn/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=mail.nju.edu.cn&sz=64"></div>
+                    <span class="link-text">南大邮箱</span>
+                </a>
+                <a href="https://table.nju.edu.cn/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=table.nju.edu.cn&sz=64"></div>
+                    <span class="link-text">南大table</span>
+                </a>
+                <a href="https://xk.nju.edu.cn/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=xk.nju.edu.cn&sz=64"></div>
+                    <span class="link-text">选课系统</span>
+                </a>
+                <a href="https://test.nju.edu.cn/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=test.nju.edu.cn&sz=64"></div>
+                    <span class="link-text">南大测速</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="link-category">
+            <div class="category-title">课程网站</div>
+            <div class="link-grid category-row">
+                <a href="https://nju-3dv.github.io/cm2026/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=nju-3dv.github.io/cm2026&sz=64">
+                    </div>
+                    <span class="link-text">计算方法</span>
+                </a>
+                <a href="http://10.58.102.15:3001/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=10.58.102.15:3001&sz=64"></div>
+                    <span class="link-text">机器学习导论</span>
+                </a>
+                <a href="https://www.ketangpai.com/#/main/classDetail?courseid=MDAwMDAwMDAwMLOcuZaGqbuxhaVyoQ&courserole=0&submodulename=0&modulename=CourseContent" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=ketangpai.com&sz=64"></div>
+                    <span class="link-text">操作系统</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="link-category">
+            <div class="category-title">AI相关工具</div>
+            <div class="link-grid category-row">
+                <a href="https://gemini.google.com" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=64">
+                    </div>
+                    <span class="link-text">Gemini</span>
+                </a>
+                <a href="https://chatgpt.com" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=64"></div>
+                    <span class="link-text">ChatGPT</span>
+                </a>
+                <a href="https://chat.deepseek.com" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=deepseek.com&sz=64"></div>
+                    <span class="link-text">DeepSeek</span>
+                </a>
+                <a href="https://www.doubao.com" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=doubao.com&sz=64"></div>
+                    <span class="link-text">豆包</span>
+                </a>
+                <a href="https://cn.aliyun.com/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=cn.aliyun.com&sz=64">
+                    </div>
+                    <span class="link-text">阿里云</span>
+                </a>
+                <a href="https://colab.research.google.com/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=colab.research.google.com&sz=64">
+                    </div>
+                    <span class="link-text">colab</span>
+                </a>
+                <a href="https://huggingface.co/" class="link-item" target="_blank">
+                    <div class="link-icon"><img src="https://www.google.com/s2/favicons?domain=huggingface.co&sz=64">
+                    </div>
+                    <span class="link-text">HuggingFace</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
