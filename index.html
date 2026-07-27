@@ -41,23 +41,231 @@
             width: 90%;
             max-width: 700px;
             margin-bottom: 4vh;
+            position: relative;
+            z-index: 10;
         }
 
         .search-form {
             display: flex;
             align-items: center;
             background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            border-radius: 26px;
+            padding: 3px 8px 3px 5px;
+            box-shadow: 0 8px 24px rgba(12, 37, 75, 0.12);
+            transition: box-shadow 0.2s, background 0.2s;
+        }
+
+        .search-container:focus-within .search-form {
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(12, 37, 75, 0.2);
+        }
+
+        .engine-picker {
+            position: relative;
+            flex: 0 0 auto;
+        }
+
+        .engine-button {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 11px 0 8px;
+            border: 0;
             border-radius: 20px;
-            padding: 2px 8px;
+            background: transparent;
+            color: #283548;
+            font: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.18s;
+        }
+
+        .engine-button:hover,
+        .engine-button[aria-expanded="true"] {
+            background: rgba(35, 88, 155, 0.09);
+        }
+
+        .engine-mark {
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1;
+            box-shadow: 0 2px 6px rgba(31, 55, 85, 0.18);
+        }
+
+        .engine-mark.bing {
+            background: linear-gradient(145deg, #13a8a8, #087bce);
+        }
+
+        .engine-mark.google {
+            background: linear-gradient(135deg, #4285f4 0 48%, #34a853 48% 66%, #fbbc05 66% 82%, #ea4335 82%);
+        }
+
+        .engine-mark.baidu {
+            background: linear-gradient(145deg, #476cff, #2846d7);
+        }
+
+        .engine-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .engine-arrow {
+            color: #788597;
+            font-size: 0.68rem;
+            transition: transform 0.18s;
+        }
+
+        .engine-button[aria-expanded="true"] .engine-arrow {
+            transform: rotate(180deg);
+        }
+
+        .engine-menu {
+            position: absolute;
+            z-index: 2;
+            top: calc(100% + 10px);
+            left: 0;
+            min-width: 146px;
+            padding: 6px;
+            margin: 0;
+            list-style: none;
+            border: 1px solid rgba(255, 255, 255, 0.68);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 14px 36px rgba(14, 36, 67, 0.22);
+            backdrop-filter: blur(18px);
+        }
+
+        .engine-menu[hidden] {
+            display: none;
+        }
+
+        .engine-option {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 10px;
+            border: 0;
+            border-radius: 10px;
+            background: transparent;
+            color: #283548;
+            font: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .engine-option:hover,
+        .engine-option:focus-visible,
+        .engine-option[aria-selected="true"] {
+            background: rgba(35, 88, 155, 0.09);
+            outline: none;
+        }
+
+        .search-divider {
+            width: 1px;
+            height: 24px;
+            flex: 0 0 auto;
+            margin: 0 3px;
+            background: rgba(71, 89, 112, 0.2);
         }
 
         .search-input {
             flex: 1;
+            min-width: 0;
             border: none;
             outline: none;
             padding: 15px 12px;
             font-size: 1rem;
+            color: #223044;
             background: transparent;
+        }
+
+        .search-input::placeholder {
+            color: #7a8798;
+        }
+
+        .search-submit {
+            width: 40px;
+            height: 40px;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 50%;
+            background: transparent;
+            color: #52647a;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.18s, background 0.18s;
+        }
+
+        .search-submit:hover,
+        .search-submit:focus-visible {
+            color: #1677c8;
+            background: rgba(35, 88, 155, 0.09);
+            outline: none;
+        }
+
+        .suggestions {
+            position: absolute;
+            z-index: 1;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            padding: 7px;
+            margin: 0;
+            list-style: none;
+            border: 1px solid rgba(255, 255, 255, 0.68);
+            border-radius: 17px;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 16px 42px rgba(14, 36, 67, 0.24);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+        }
+
+        .suggestions[hidden] {
+            display: none;
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-height: 40px;
+            padding: 0 13px;
+            border-radius: 11px;
+            color: #26364b;
+            font-size: 0.94rem;
+            cursor: pointer;
+        }
+
+        .suggestion-item::before {
+            content: '⌕';
+            color: #718096;
+            font-size: 1.2rem;
+            transform: rotate(-16deg);
+        }
+
+        .suggestion-item:hover,
+        .suggestion-item.is-active {
+            background: rgba(35, 88, 155, 0.09);
+        }
+
+        .suggestion-text {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .links-wrapper {
@@ -150,20 +358,81 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
+        @media (max-width: 560px) {
+            .engine-name {
+                display: none;
+            }
+
+            .engine-button {
+                gap: 4px;
+                padding-right: 7px;
+            }
+
+            .search-input {
+                padding-left: 8px;
+            }
+        }
     </style>
+    <link rel="stylesheet" href="theme.css">
 </head>
 
 <body>
-    <h1>网页导览</h1>
+    <main class="page-shell">
+        <header class="page-header">
+            <span class="eyebrow">Young's Space</span>
+            <h1>网页导览</h1>
+            <p class="page-subtitle">常用站点，一触即达</p>
+        </header>
 
     <div class="search-container">
-        <form class="search-form" action="https://www.bing.com/search" method="GET" target="_blank">
-            <input class="search-input" type="text" name="q" placeholder="在Bing上搜索..." autocomplete="off" autofocus>
+        <form class="search-form" id="searchForm" action="https://www.bing.com/search" method="GET" target="_blank">
+            <div class="engine-picker">
+                <button class="engine-button" id="engineButton" type="button" aria-haspopup="listbox"
+                    aria-expanded="false" aria-label="选择搜索引擎">
+                    <span class="engine-mark bing" id="currentEngineMark">b</span>
+                    <span class="engine-name" id="currentEngineName">必应</span>
+                    <span class="engine-arrow" aria-hidden="true">▼</span>
+                </button>
+                <ul class="engine-menu" id="engineMenu" role="listbox" aria-label="搜索引擎" hidden>
+                    <li>
+                        <button class="engine-option" type="button" role="option" data-engine="bing"
+                            aria-selected="true">
+                            <span class="engine-mark bing">b</span>
+                            微软必应
+                        </button>
+                    </li>
+                    <li>
+                        <button class="engine-option" type="button" role="option" data-engine="google"
+                            aria-selected="false">
+                            <span class="engine-mark google">G</span>
+                            谷歌
+                        </button>
+                    </li>
+                    <li>
+                        <button class="engine-option" type="button" role="option" data-engine="baidu"
+                            aria-selected="false">
+                            <span class="engine-mark baidu">度</span>
+                            百度
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <span class="search-divider" aria-hidden="true"></span>
+            <input class="search-input" id="searchInput" type="text" name="q" placeholder="在必应上搜索..."
+                autocomplete="off" autofocus aria-autocomplete="list" aria-controls="suggestions"
+                aria-expanded="false">
+            <button class="search-submit" type="submit" aria-label="搜索">⌕</button>
         </form>
+        <ul class="suggestions" id="suggestions" role="listbox" aria-label="搜索建议" hidden></ul>
     </div>
 
     <div class="links-wrapper">
         <div class="link-grid featured-row">
+            <div class="section-label">
+                <span>快捷访问</span>
+                <small>Favorites</small>
+            </div>
             <a href="https://github.com/Y27zy" class="link-item" target="_blank">
                 <div class="link-icon"><img src="GitHub.png"></div>
                 <span class="link-text">GitHub(Y27zy)</span>
@@ -304,6 +573,247 @@
             </div>
         </div>
     </div>
+    </main>
+    <script>
+        const engines = {
+            bing: {
+                name: '必应',
+                mark: 'b',
+                action: 'https://www.bing.com/search',
+                queryName: 'q',
+                suggestUrl: (query, callback) =>
+                    `https://api.bing.com/osjson.aspx?query=${encodeURIComponent(query)}&JsonType=callback&JsonCallback=${callback}`,
+                parseSuggestions: data => Array.isArray(data?.[1]) ? data[1] : []
+            },
+            google: {
+                name: '谷歌',
+                mark: 'G',
+                action: 'https://www.google.com/search',
+                queryName: 'q',
+                suggestUrl: (query, callback) =>
+                    `https://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(query)}&callback=${callback}`,
+                parseSuggestions: data => Array.isArray(data?.[1]) ? data[1] : []
+            },
+            baidu: {
+                name: '百度',
+                mark: '度',
+                action: 'https://www.baidu.com/s',
+                queryName: 'wd',
+                suggestUrl: (query, callback) =>
+                    `https://suggestion.baidu.com/su?wd=${encodeURIComponent(query)}&cb=${callback}`,
+                parseSuggestions: data => Array.isArray(data?.s) ? data.s : []
+            }
+        };
+
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const engineButton = document.getElementById('engineButton');
+        const engineMenu = document.getElementById('engineMenu');
+        const engineOptions = [...document.querySelectorAll('.engine-option')];
+        const currentEngineMark = document.getElementById('currentEngineMark');
+        const currentEngineName = document.getElementById('currentEngineName');
+        const suggestionsElement = document.getElementById('suggestions');
+
+        let currentEngine = localStorage.getItem('preferredSearchEngine');
+        if (!engines[currentEngine]) currentEngine = 'bing';
+
+        let suggestions = [];
+        let activeSuggestion = -1;
+        let debounceTimer;
+        let requestNumber = 0;
+        let activeScript;
+
+        function setEngine(engineKey) {
+            currentEngine = engineKey;
+            const engine = engines[engineKey];
+
+            searchForm.action = engine.action;
+            searchInput.name = engine.queryName;
+            searchInput.placeholder = `在${engine.name}上搜索...`;
+            currentEngineMark.className = `engine-mark ${engineKey}`;
+            currentEngineMark.textContent = engine.mark;
+            currentEngineName.textContent = engine.name;
+            engineOptions.forEach(option => {
+                option.setAttribute('aria-selected', String(option.dataset.engine === engineKey));
+            });
+
+            localStorage.setItem('preferredSearchEngine', engineKey);
+            closeEngineMenu();
+            if (searchInput.value.trim()) requestSuggestions();
+            searchInput.focus();
+        }
+
+        function openEngineMenu() {
+            closeSuggestions();
+            engineMenu.hidden = false;
+            engineButton.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeEngineMenu() {
+            engineMenu.hidden = true;
+            engineButton.setAttribute('aria-expanded', 'false');
+        }
+
+        function closeSuggestions() {
+            suggestionsElement.hidden = true;
+            searchInput.setAttribute('aria-expanded', 'false');
+            activeSuggestion = -1;
+        }
+
+        function renderSuggestions(items) {
+            suggestions = items.slice(0, 8);
+            activeSuggestion = -1;
+            suggestionsElement.replaceChildren();
+
+            if (!suggestions.length || !searchInput.value.trim()) {
+                closeSuggestions();
+                return;
+            }
+
+            suggestions.forEach((suggestion, index) => {
+                const item = document.createElement('li');
+                const text = document.createElement('span');
+                item.className = 'suggestion-item';
+                item.id = `suggestion-${index}`;
+                item.setAttribute('role', 'option');
+                item.setAttribute('aria-selected', 'false');
+                text.className = 'suggestion-text';
+                text.textContent = suggestion;
+                item.appendChild(text);
+
+                item.addEventListener('mousedown', event => event.preventDefault());
+                item.addEventListener('click', () => submitSearch(suggestion));
+                suggestionsElement.appendChild(item);
+            });
+
+            suggestionsElement.hidden = false;
+            searchInput.setAttribute('aria-expanded', 'true');
+        }
+
+        function setActiveSuggestion(index) {
+            const items = [...suggestionsElement.children];
+            items.forEach(item => {
+                item.classList.remove('is-active');
+                item.setAttribute('aria-selected', 'false');
+            });
+
+            activeSuggestion = index;
+            if (index >= 0 && items[index]) {
+                items[index].classList.add('is-active');
+                items[index].setAttribute('aria-selected', 'true');
+                searchInput.setAttribute('aria-activedescendant', items[index].id);
+                searchInput.value = suggestions[index];
+            } else {
+                searchInput.removeAttribute('aria-activedescendant');
+            }
+        }
+
+        function loadJsonp(url) {
+            return new Promise((resolve, reject) => {
+                const callbackName = `searchSuggestions_${Date.now()}_${requestNumber}`;
+                const script = document.createElement('script');
+                const timeout = setTimeout(() => finish(new Error('Suggestion request timed out')), 5000);
+
+                function finish(error, data) {
+                    clearTimeout(timeout);
+                    script.remove();
+                    delete window[callbackName];
+                    if (activeScript === script) activeScript = null;
+                    error ? reject(error) : resolve(data);
+                }
+
+                window[callbackName] = data => finish(null, data);
+                script.onerror = () => finish(new Error('Suggestion request failed'));
+                script.src = url(callbackName);
+                activeScript?.remove();
+                activeScript = script;
+                document.head.appendChild(script);
+            });
+        }
+
+        async function requestSuggestions() {
+            const query = searchInput.value.trim();
+            const engineKey = currentEngine;
+            const thisRequest = ++requestNumber;
+
+            if (!query) {
+                closeSuggestions();
+                return;
+            }
+
+            try {
+                const engine = engines[engineKey];
+                const data = await loadJsonp(callback => engine.suggestUrl(query, callback));
+                if (thisRequest !== requestNumber || engineKey !== currentEngine) return;
+                renderSuggestions(engine.parseSuggestions(data));
+            } catch {
+                if (thisRequest === requestNumber) closeSuggestions();
+            }
+        }
+
+        function submitSearch(query = searchInput.value.trim()) {
+            if (!query) return;
+            searchInput.value = query;
+            closeSuggestions();
+            searchForm.requestSubmit();
+        }
+
+        engineButton.addEventListener('click', () => {
+            engineMenu.hidden ? openEngineMenu() : closeEngineMenu();
+        });
+
+        engineOptions.forEach(option => {
+            option.addEventListener('click', () => setEngine(option.dataset.engine));
+        });
+
+        searchInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            requestNumber++;
+            if (!searchInput.value.trim()) {
+                closeSuggestions();
+                return;
+            }
+            debounceTimer = setTimeout(requestSuggestions, 180);
+        });
+
+        searchInput.addEventListener('keydown', event => {
+            if (event.key === 'ArrowDown' && suggestions.length && !suggestionsElement.hidden) {
+                event.preventDefault();
+                setActiveSuggestion((activeSuggestion + 1) % suggestions.length);
+            } else if (event.key === 'ArrowUp' && suggestions.length && !suggestionsElement.hidden) {
+                event.preventDefault();
+                setActiveSuggestion((activeSuggestion - 1 + suggestions.length) % suggestions.length);
+            } else if (event.key === 'Escape') {
+                closeSuggestions();
+                closeEngineMenu();
+            } else if (event.key === 'Enter' && activeSuggestion >= 0) {
+                event.preventDefault();
+                submitSearch(suggestions[activeSuggestion]);
+            }
+        });
+
+        searchInput.addEventListener('focus', () => {
+            if (suggestions.length && searchInput.value.trim()) {
+                suggestionsElement.hidden = false;
+                searchInput.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        searchForm.addEventListener('submit', event => {
+            if (!searchInput.value.trim()) {
+                event.preventDefault();
+                return;
+            }
+            closeSuggestions();
+        });
+
+        document.addEventListener('click', event => {
+            if (!event.target.closest('.engine-picker')) closeEngineMenu();
+            if (!event.target.closest('.search-container')) closeSuggestions();
+        });
+
+        setEngine(currentEngine);
+    </script>
 </body>
 
 </html>
