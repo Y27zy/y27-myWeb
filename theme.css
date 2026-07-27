@@ -215,6 +215,8 @@ h1 {
 .links-wrapper {
     width: 100%;
     max-width: none;
+    margin-top: 0;
+    padding-top: 36px;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
@@ -233,6 +235,8 @@ h1 {
 }
 
 .featured-row {
+    position: relative;
+    top: -36px;
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
